@@ -1,30 +1,69 @@
+import { useState } from 'react';
 import "./style.css"
 
 export default function App() {
-  return  (
-    <>
-    <form className="new-item-form form">
-      <div className="form-item">
-        <label htmlFor="item">Enter</label>
-        <input type="text" id="item" />
-    </div>
-    <button className="btn"> submit</button>
-    </form>
-    <h3>submitted items:</h3>
-    <div className="itemcheck">
-      <div className="item1">
-        <input type="checkbox" name="" id="item1" />
-        <label htmlFor="item1">item1</label>
-        <button className="btn btn-danger">Remove</button>
-      </div>
+  const [newItem, setNewItem] = useState("")
+  const [todos, setTodos] = useState([])
 
-      <div className="item1">
-        <input type="checkbox" name="" id="item1" />
-        <label htmlFor="item1">item2</label>
-        <button className="btn btn-danger">Remove</button>
+  function handleSubmit(e) {
+    e.preventDefault()
+    if (newItem === "") return
+
+    setTodos(currentTodos => {
+      return [
+        ...currentTodos,
+        { id: crypto.randomUUID(), title: newItem, completed: false },
+      ]
+    })
+
+    setNewItem("")
+  }
+
+
+  function toggleTodo (id, completed) {
+        setTodos(currentTodos =>
+        {
+          return currentTodos.map(todo => {
+            if(todo.id === id) {
+                return {...todo, completed}
+            }
+
+            return todo
+          })
+        })
+  }
+
+  return (
+    <>
+      <div className='container'>
+        <form onSubmit={handleSubmit} className="new-item-form form">
+          <div className="form-item">
+            <label htmlFor="item">Enter</label>
+            <input 
+              value={newItem}
+              onChange={e => setNewItem(e.target.value)} 
+              type="text" 
+              id="item" 
+            />
+          </div>
+          <button className="btn">Submit</button>
+        </form>
+        <h3>Submitted Items:</h3>
+        <div className="itemcheck">
+          {todos.map(todo => (
+            <div key={todo.id} className="item1">
+              <input 
+                type="checkbox" 
+                id={todo.id} 
+                checked={todo.completed} 
+                onChange={e => toggleTodo (todo.id, e.target.checked)}
+              />
+              <label htmlFor={todo.id}>{todo.title}</label>
+              <button className="btn btn-danger">Remove</button>
+            </div>
+          ))}
+        </div>
       </div>
-    </div>
-    </>  
+    </>
   )
-  
 }

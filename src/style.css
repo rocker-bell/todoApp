@@ -1,9 +1,9 @@
 * {
-    outline-style: dotted ;
+    /* outline-style: dotted ; */
     margin:0;
     padding: 0;
-    background-color: black;
-    color: white;
+    background-color: white;
+    color: black;
 }
 
 body {
@@ -11,6 +11,13 @@ body {
     min-height: 100vh;
     display: flex;
     justify-content: center;
+}
+
+.container {
+    border: 1px solid black;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
 }
 
 .form {
@@ -32,6 +39,7 @@ body {
 }
 
 #item {
+    color: white;
     margin: 10px 10px;
     padding: 0 5px;
     border: 2px solid red;
@@ -45,6 +53,8 @@ body {
 }
 
 .btn {
+    height: 40px;
+    color: white;
     background-color: black;
     border: 3px solid blue;
     border-radius: 5px;
