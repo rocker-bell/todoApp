@@ -12,7 +12,7 @@ export default function App() {
     setTodos(currentTodos => {
       return [
         ...currentTodos,
-        { id: crypto.randomUUID(), title: newItem, completed: false },
+        { id: Math.floor(Math.random() * 1000), title: newItem, completed: false },
       ]
     })
 
@@ -33,6 +33,12 @@ export default function App() {
         })
   }
 
+  function DeletetoDo (id ) {
+    setTodos(currentTodos => {
+        return currentTodos.filter(todo => todo.id !== id)
+    })
+  }
+
   return (
     <>
       <div className='container'>
@@ -50,6 +56,7 @@ export default function App() {
         </form>
         <h3>Submitted Items:</h3>
         <div className="itemcheck">
+          {todos.length === 0 && "No todos"}
           {todos.map(todo => (
             <div key={todo.id} className="item1">
               <input 
@@ -59,7 +66,7 @@ export default function App() {
                 onChange={e => toggleTodo (todo.id, e.target.checked)}
               />
               <label htmlFor={todo.id}>{todo.title}</label>
-              <button className="btn btn-danger">Remove</button>
+              <button className="btn btn-danger" onClick={() => DeletetoDo(todo.id)}>Remove</button>
             </div>
           ))}
         </div>
