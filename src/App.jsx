@@ -58,7 +58,7 @@ export default function App() {
         <div className="itemcheck">
           {todos.length === 0 && "No todos"}
           {todos.map(todo => (
-            <div key={todo.id} className="item1">
+            <div key={todo.id} className="item">
               <input 
                 type="checkbox" 
                 id={todo.id} 
